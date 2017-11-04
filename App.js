@@ -23,7 +23,11 @@ const instructions = Platform.select({
 
 export default class App extends Component<{}> {
   render() {
-    console.log(generatePassword());
+    // https://github.com/brendanashworth/generate-password
+    //  var password = generatePassword({
+	  //    length: 10,
+	  //    numbers: true
+    //  });
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
