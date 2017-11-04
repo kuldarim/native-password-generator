@@ -9,6 +9,8 @@ import {
   Platform,
   StyleSheet,
   Text,
+  Button,
+  Clipboard,
   View
 } from 'react-native';
 
@@ -22,6 +24,22 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      password: '',
+    };
+  }
+
+  writeToClipboard = async () => {
+    const password = generatePassword();
+    this.setState({password})
+    await Clipboard.setString(this.state.password);
+    alert('Copied to Clipboard!');
+  };
+
   render() {
     // https://github.com/brendanashworth/generate-password
     //  var password = generatePassword({
@@ -31,14 +49,15 @@ export default class App extends Component<{}> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to password generator!
         </Text>
         <Text style={styles.instructions}>
-          {generatePassword()}
+          {this.state.password}
         </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <Button
+          onPress={this.writeToClipboard}
+          title="Copy new password to Clipboard"
+        />
       </View>
     );
   }
