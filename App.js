@@ -1,29 +1,25 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
-  Text,
-  TextInput,
   Switch,
-  Button,
   Clipboard,
-  View
 } from 'react-native';
 
-import { generatePassword } from './password';
+import { 
+  Container, 
+  Header, 
+  Title, 
+  Content, 
+  Footer, 
+  FooterTab, 
+  Button, 
+  Body, 
+  Icon,
+  Input,
+  Text 
+} from 'native-base';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import { generatePassword } from './password';
 
 export default class App extends Component {
 
@@ -63,29 +59,40 @@ export default class App extends Component {
 	  //    numbers: true
     //  });
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}> Welcome to password generator!</Text>
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(text) => this.setState({length: text})}
-          value={this.state.length}
-          keyboardType={'numeric'}
-          maxLength={2}
-        />
-        <Text> Numbers </Text>
-        <Switch
-          onValueChange={(value) => this.setState({numbers: value})}
-          style={{marginBottom: 10}}
-          value={this.state.numbers} 
-        />
-        <Text style={styles.instructions}>
-          {this.state.password}
-        </Text>
-        <Button
-          onPress={this.writeToClipboard}
-          title="Copy new password to Clipboard"
-        />
-      </View>
+      <Container>
+        <Header>
+          <Body>
+            <Title>Welcome to password generator!</Title>
+          </Body>
+        </Header>
+        <Content>
+          <Input 
+            placeholder="Underline Textbox" 
+            onChangeText={(text) => this.setState({length: text})}
+            value={this.state.length}
+            keyboardType={'numeric'}
+          />
+          <Text> Numbers </Text>
+          <Switch
+            onValueChange={(value) => this.setState({numbers: value})}
+            style={{marginBottom: 10}}
+            value={this.state.numbers} 
+          />
+          <Text style={styles.instructions}>
+            {this.state.password}
+          </Text>
+          <Button onPress={this.writeToClipboard}>
+            <Text>Copy new password to Clipboard</Text>
+          </Button>
+        </Content>
+        <Footer>
+          <FooterTab>
+            <Button full>
+              <Text>Footer</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
     );
   }
 }
