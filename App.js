@@ -16,7 +16,10 @@ import {
   Body, 
   Icon,
   Input,
-  Text 
+  Text,
+  Card, 
+  CardItem,
+  Right
 } from 'native-base';
 
 import { generatePassword } from './password';
@@ -28,7 +31,7 @@ export default class App extends Component {
 
     this.state = {
       password: '',
-      length: 10,
+      length: '10',
       numbers: false,
       symbols: false,
       uppercase: true,
@@ -66,18 +69,64 @@ export default class App extends Component {
           </Body>
         </Header>
         <Content>
-          <Input 
-            placeholder="Underline Textbox" 
-            onChangeText={(text) => this.setState({length: text})}
-            value={this.state.length}
-            keyboardType={'numeric'}
-          />
-          <Text> Numbers </Text>
-          <Switch
-            onValueChange={(value) => this.setState({numbers: value})}
-            style={{marginBottom: 10}}
-            value={this.state.numbers} 
-          />
+          <Card>
+            <CardItem>
+              <Text>Numbers</Text>
+              <Right>
+                <Switch
+                  onValueChange={(value) => this.setState({numbers: value})}
+                  value={this.state.numbers} 
+                />
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Text>Symbols</Text>
+              <Right>
+                <Switch
+                  onValueChange={(value) => this.setState({Symbols: value})}
+                  value={this.state.Symbols} 
+                />
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Text>Uppercase</Text>
+              <Right>
+                <Switch
+                  onValueChange={(value) => this.setState({uppercase: value})}
+                  value={this.state.uppercase} 
+                />
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Text>Similar chars</Text>
+              <Right>
+                <Switch
+                  onValueChange={(value) => this.setState({excludeSimilarCharacters: value})}
+                  value={this.state.excludeSimilarCharacters} 
+                />
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Text>Strict</Text>
+              <Right>
+                <Switch
+                  onValueChange={(value) => this.setState({strict: value})}
+                  value={this.state.strict} 
+                />
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Text>Length</Text>
+              <Right>
+                <Input 
+                  placeholder="Underline Textbox" 
+                  onChangeText={(text) => this.setState({length: text})}
+                  value={this.state.length}
+                  keyboardType={'numeric'}
+                />
+              </Right>
+            </CardItem>
+          </Card>
           <Text style={styles.instructions}>
             {this.state.password}
           </Text>
