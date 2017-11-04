@@ -9,6 +9,8 @@ import {
   Platform,
   StyleSheet,
   Text,
+  TextInput,
+  Switch,
   Button,
   Clipboard,
   View
@@ -23,18 +25,32 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component<{}> {
+export default class App extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
       password: '',
+      length: 10,
+      numbers: false,
+      symbols: false,
+      uppercase: true,
+      excludeSimilarCharacters: false,
+      strict: false,
     };
   }
 
   writeToClipboard = async () => {
-    const password = generatePassword();
+    const {length, numbers, symbols, uppercase, excludeSimilarCharacters, strict} = this.state;
+    const password = generatePassword({
+      length,
+      numbers,
+      symbols,
+      uppercase,
+      excludeSimilarCharacters,
+      strict
+    });
     this.setState({password})
     await Clipboard.setString(this.state.password);
     alert('Copied to Clipboard!');
@@ -48,9 +64,20 @@ export default class App extends Component<{}> {
     //  });
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to password generator!
-        </Text>
+        <Text style={styles.welcome}> Welcome to password generator!</Text>
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(text) => this.setState({length: text})}
+          value={this.state.length}
+          keyboardType={'numeric'}
+          maxLength={2}
+        />
+        <Text> Numbers </Text>
+        <Switch
+          onValueChange={(value) => this.setState({numbers: value})}
+          style={{marginBottom: 10}}
+          value={this.state.numbers} 
+        />
         <Text style={styles.instructions}>
           {this.state.password}
         </Text>
